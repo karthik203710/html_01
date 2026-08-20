@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stone Paper Scissors</title>
+  <style>
+    body {
+      background-color: rgb(103, 204, 170);
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #start_box {
+      margin-top: 180px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 40px;
+      animation: fade-in 2s forwards;
+    }
+
+    #bot {
+      visibility: hidden;
+      margin-top: 40px;
+      animation: fade-in 2s forwards;
+    }
+
+    #stone, #paper, #scisor, #START, #Rest {
+      padding: 60px;
+      display: inline-block;
+      border-radius: 150px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin: 10px;
+      user-select: none;
+    }
+
+    #stone {
+      background-color: rgb(66, 66, 66);
+      color: white;
+    }
+
+    #paper {
+      background-color: rgb(224, 222, 222);
+      color: black;
+    }
+
+    #scisor {
+      background-color: rgb(190, 8, 8);
+      color: white;
+    }
+
+    #START {
+      background-color: black;
+      color: white;
+    }
+
+    #Rest {
+      background-color: red;
+      color: white;
+      visibility: hidden;
+    }
+
+    #stone:hover, #paper:hover, #scisor:hover, #START:hover, #Rest:hover {
+      transform: translateY(-10px);
+      box-shadow: 2px 20px 30px rgba(0, 0, 0, 0.5);
+      background-color: aliceblue;
+      color: black;
+    }
+
+    #WIN {
+      visibility: hidden;
+      margin-top: 30px;
+      font-size: 32px;
+      color: darkgreen;
+      font-weight: bold;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="start_box">
+    <h1><u>WELCOME TO GAME MADE BY KARTHIK</u></h1>
+    <h2><u>STONE PAPER SCISSORS</u></h2>
+    <hr>
+  </div>
+
+  <h1 id="START" onclick="startGame()">START</h1>
+  <h1 id="Rest" onclick="restartGame()">RESTART</h1>
+
+  <h1 id="WIN">CONGRATULATIONS YOU WIN!</h1>
+  <div id="message"></div>
+
+  <div id="bot">
+    <h1 id="stone" onclick="play('stone')">STONE</h1>
+    <h1 id="paper" onclick="play('paper')">PAPER</h1>
+    <h1 id="scisor" onclick="play('scisor')">SCISOR</h1>
+  </div>
+
+  <script>
+    const choices = ["stone", "paper", "scisor"];
+
+    function startGame() {
+      document.getElementById("bot").style.visibility = "visible";
+      document.getElementById("START").style.visibility = "hidden";
+      document.getElementById("Rest").style.visibility = "visible";
+      document.getElementById("WIN").style.visibility = "hidden";
+      document.getElementById("message").innerText = "";
+    }
+
+    function restartGame() {
+      document.getElementById("bot").style.visibility = "hidden";
+      document.getElementById("START").style.visibility = "visible";
+      document.getElementById("Rest").style.visibility = "hidden";
+      document.getElementById("WIN").style.visibility = "hidden";
+      document.getElementById("message").innerText = "";
+    }
+
+    function play(userChoice) {
+      const compChoice = choices[Math.floor(Math.random() * choices.length)];
+      const resultBox = document.getElementById("message");
+      const winBox = document.getElementById("WIN");
+
+      if (userChoice === compChoice) {
+        resultBox.innerText = `It's a draw! Computer chose ${compChoice.toUpperCase()}.`;
+        winBox.style.visibility = "hidden";
+      } else if (
+        (userChoice === "stone" && compChoice === "scisor") ||
+        (userChoice === "paper" && compChoice === "stone") ||
+        (userChoice === "scisor" && compChoice === "paper")
+      ) {
+        resultBox.innerText = `You win! Computer chose ${compChoice.toUpperCase()}.`;
+        winBox.style.visibility = "visible";
+      } else {
+        resultBox.innerText = `You lose! Computer chose ${compChoice.toUpperCase()}.`;
+        winBox.style.visibility = "hidden";
+      }
+    }
+  </script>
+
+</body>
+</html>
